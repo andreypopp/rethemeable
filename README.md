@@ -9,8 +9,15 @@ components.
 It doesn't define the notion of theme, the theme can be a list of CSS class
 names or a set of inline style directives.
 
+It doesn't define how components should apply themes. It is up to component to
+decide what and when to apply CSS class names or inline styles.
+
 Instead Rethemeable define a way to propagate theme through React component
 tree.
+
+It's up to component authors to declare the theming contract for each component.
+
+It's up to consumers to fulfil the theming contract for each component.
 
 Installation
 ------------
