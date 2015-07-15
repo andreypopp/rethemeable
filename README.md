@@ -1,16 +1,16 @@
 Rethemeable
 ===========
 
-**UNRELEASED EXPERIMENT**
+**BEWARE EXPERIMENTAL CODE**
 
 Rethemeable provides utilities for producing and consuming themeable [React][]
 components.
 
-It doesn't define the notion of theme, the theme can be a list of CSS class
-names or a set of inline style directives.
+It doesn't define the notion of theme. A theme can be a list of CSS class names
+or a set of inline style directives.
 
-It doesn't define how components should apply themes. It is up to component to
-decide what and when to apply CSS class names or inline styles.
+It doesn't define how components apply themes. It is up to component to decide
+what and when to apply CSS class names or inline styles.
 
 Instead Rethemeable define a way to propagate theme through React component
 tree.
@@ -22,7 +22,7 @@ It's up to consumers to fulfil the theming contract for each component.
 Installation
 ------------
 
-Install with [npm][]:
+Install with [npm][] (doesn't work now as Rethemeable isn't released yet):
 
     % npm install rethemeable
 
@@ -47,7 +47,9 @@ Define a themeable component:
       }
     }
 
-Now we can define a theme separately:
+Now define a theme as an object with keys defined by themeable components:
+
+    import Button from 'widgets/Button'
 
     let BootstrapTheme = {
       [Button.theme]: {
@@ -55,7 +57,7 @@ Now we can define a theme separately:
       }
     }
 
-And configure theme via `<Themed />` component:
+And configure it via `<Themed />` component:
 
     import {Themed} from 'rethemeable'
     import React from 'react'
@@ -71,19 +73,19 @@ And configure theme via `<Themed />` component:
 
 Component `<Button />` will receive `theme` prop implicitly.
 
-But you can also pass it directly if you need fine-grained control:
+You can also pass theme directly to component via props if you need a more
+fine-grained control:
 
     <Button theme={...} />
 
-Also, if you don't want to use `<Themed />` component but just want to apply
-some theme on a themeable component you can use `ApplyTheme` function:
+If you don't want to use `<Themed />` component but just apply some theme on a
+themeable component you can use `ApplyTheme` function:
 
     import {ApplyTheme} from 'rethemeable'
     import ThemeableButton from 'third-party-themeable-button'
+    import MyButtonTheme from './themes/button'
 
-    let MyButtonTheme = {...}
-
-    let MyButton = ApplyTheme(theme, ThemeableButton)
+    let MyButton = ApplyTheme(MyButtonTheme, ThemeableButton)
 
     React.render(<MyButton>Hello, I'm themed!</MyButton>)
 
