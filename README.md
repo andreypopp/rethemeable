@@ -20,7 +20,7 @@ It's up to consumers to fulfil the theming contract for each component.
 Installation
 ------------
 
-Install with [npm][] (doesn't work now as Rethemeable isn't released yet):
+Install from [npm][]:
 
     % npm install rethemeable
 
