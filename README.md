@@ -1,8 +1,6 @@
 Rethemeable
 ===========
 
-**BEWARE EXPERIMENTAL CODE**
-
 Rethemeable provides utilities for producing and consuming themeable [React][]
 components.
 
