@@ -10,30 +10,66 @@ function shallowRender(element, context) {
   return renderer.getRenderOutput();
 }
 
-function render(element, context) {
-  return shallowRender(shallowRender(element), context);
-}
-
 describe('<Themed />', function() {
 
-  class Component extends React.Component {
-    static contextTypes = ContextTypes;
-    render() {
-      let theme = get(this);
-      return <div className={theme.className} />;
-    }
-  }
-
   it('injects theme via context', function() {
+    class Component extends React.Component {
+      static contextTypes = ContextTypes;
+      render() {
+        let theme = get(this);
+        return <div className={theme.className} />;
+      }
+    }
+
     let theme = {className: 'className'};
     let context = new Themed({theme}).getChildContext();
-    let themedElem = render(
+    let themedElem;
+    themedElem = shallowRender(
       <Themed theme={theme}>
         <Component />
-      </Themed>,
-      context
+      </Themed>
     );
+    themedElem = shallowRender(themedElem, context);
     expect(themedElem.props.className).toBe(theme.className);
+  });
+
+  it('preserves theme passed via outer components', function() {
+    class Component extends React.Component {
+      static contextTypes = ContextTypes;
+      render() {
+        let theme = get(this);
+        return (
+          <div
+            className1={theme.className1}
+            className2={theme.className2}
+            />
+        );
+      }
+    }
+
+    let theme1 = {className1: 'className1'};
+    let theme2 = {className2: 'className2'};
+    let themed1 = new Themed({theme: theme1});
+    let context0 = {};
+    themed1.context = context0;
+    let themed2 = new Themed({theme: theme2});
+    let context1 = themed1.getChildContext();
+    themed2.context = context1;
+    let context2 = themed2.getChildContext();
+
+    let themedElem;
+    themedElem = shallowRender(
+      <Themed theme={theme1}>
+        <Themed theme={theme2}>
+          <Component />
+        </Themed>
+      </Themed>
+    );
+    themedElem = shallowRender(themedElem, context1);
+    themedElem = shallowRender(themedElem, context2);
+
+    expect(themedElem.props.className1).toBe(theme1.className1);
+    expect(themedElem.props.className2).toBe(theme2.className2);
   });
 
 });

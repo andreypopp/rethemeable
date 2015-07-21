@@ -11,5 +11,5 @@ export function make(theme) {
 }
 
 export function get(component) {
-  return component.context[CONTEXTKEY];
+  return component.context ? component.context[CONTEXTKEY] : undefined;
 }
