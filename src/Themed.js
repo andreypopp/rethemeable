@@ -1,6 +1,9 @@
 import React, {PropTypes}   from 'react';
 import {ContextTypes, make} from './ContextTypes';
 
+/**
+ * Inject theme into a component tree.
+ */
 export default class Themed extends React.Component {
 
   static propTypes = {

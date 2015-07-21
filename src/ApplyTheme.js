@@ -1,5 +1,10 @@
 import React        from 'react';
 
+/**
+ * Apply theme to a component.
+ *
+ * Produce a new component which has theme applied by default.
+ */
 export default function ApplyTheme(theme, Component) {
   if (Component === undefined) {
     return function ApplyThemeDecorator(DecoratedComponent) {
