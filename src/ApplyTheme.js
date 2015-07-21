@@ -11,9 +11,9 @@ export default function ApplyTheme(theme, Component) {
 }
 
 function ApplyThemeImpl(theme, Component) {
-  return class extends React.Component {
-    render() {
-      return <Component {...this.props} theme={theme} />;
+  return class extends Component {
+    get theme() {
+      return theme;
     }
   };
 }
