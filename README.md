@@ -36,10 +36,9 @@ Define a themeable component:
     class Button extends React.Component {
 
       render() {
-        let {theme, children} = this.props
         return (
-          <button className={theme.self}>
-            {children}
+          <button className={this.theme.self}>
+            {this.props.children}
           </button>
         )
       }
@@ -69,7 +68,7 @@ And configure it via `<Themed />` component:
       </Themed>
     )
 
-Component `<Button />` will receive `theme` prop implicitly.
+Component `<Button />` will receive `theme` implicitly.
 
 You can also pass theme directly to component via props if you need a more
 fine-grained control:
