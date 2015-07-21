@@ -1,5 +1,3 @@
-import React        from 'react';
-
 /**
  * Apply theme to a component.
  *
