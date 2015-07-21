@@ -9,10 +9,6 @@ function shallowRender(element, context) {
   return renderer.getRenderOutput();
 }
 
-function render(element, context) {
-  return shallowRender(shallowRender(element), context);
-}
-
 describe('ApplyTheme', function() {
 
   it('works as decorator', function() {
@@ -22,12 +18,11 @@ describe('ApplyTheme', function() {
     class Component extends React.Component {
 
       render() {
-        let {theme} = this.props;
-        return <div className={theme.className} />;
+        return <div className={this.theme.className} />;
       }
     }
 
-    let themedElem = render(<Component />);
+    let themedElem = shallowRender(<Component />);
     expect(themedElem.props.className).toBe(theme.className);
   });
 
@@ -37,14 +32,13 @@ describe('ApplyTheme', function() {
     class Component extends React.Component {
 
       render() {
-        let {theme} = this.props;
-        return <div className={theme.className} />;
+        return <div className={this.theme.className} />;
       }
     }
 
     Component = ApplyTheme(theme, Component);
 
-    let themedElem = render(<Component />);
+    let themedElem = shallowRender(<Component />);
     expect(themedElem.props.className).toBe(theme.className);
   });
 
