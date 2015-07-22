@@ -18,7 +18,7 @@ function ApplyThemeImpl(theme, Component) {
     theme = theme[Component.theme];
   }
   let displayName = Component.displayName || Component.name;
-  let ThemedComponent = class extends Component { }
+  let ThemedComponent = class extends Component { };
   ThemedComponent.displayName = displayName;
   ThemedComponent.prototype.theme = theme;
   return ThemedComponent;
