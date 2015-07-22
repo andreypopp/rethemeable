@@ -42,5 +42,27 @@ describe('ApplyTheme', function() {
     expect(themedElem.props.className).toBe(theme.className);
   });
 
+  it('can extract component theme from global theme', function() {
+    class Component extends React.Component {
+
+      render() {
+        return <div className={this.theme.className} />;
+      }
+
+      static theme = 'Component';
+    }
+
+    let theme = {
+      Component: {
+        className: 'className'
+      }
+    };
+
+    Component = ApplyTheme(theme, Component);
+
+    let themedElem = shallowRender(<Component />);
+    expect(themedElem.props.className).toBe('className');
+  });
+
 });
 
