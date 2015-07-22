@@ -1,8 +1,8 @@
-import expect                from 'expect';
-import React                 from 'react';
-import TestUtils             from 'react/lib/ReactTestUtils';
-import {ContextTypes, get}   from '../ContextTypes';
-import Themed                from '../Themed';
+import expect                                from 'expect';
+import React                                 from 'react';
+import TestUtils                             from 'react/lib/ReactTestUtils';
+import {ThemeContextTypes, getThemeContext}  from '../ThemeContextTypes';
+import Themed                                from '../Themed';
 
 function shallowRender(element, context) {
   let renderer = TestUtils.createRenderer();
@@ -14,9 +14,9 @@ describe('<Themed />', function() {
 
   it('injects theme via context', function() {
     class Component extends React.Component {
-      static contextTypes = ContextTypes;
+      static contextTypes = ThemeContextTypes;
       render() {
-        let theme = get(this);
+        let theme = getThemeContext(this);
         return <div className={theme.className} />;
       }
     }
@@ -35,9 +35,9 @@ describe('<Themed />', function() {
 
   it('preserves theme passed via outer components', function() {
     class Component extends React.Component {
-      static contextTypes = ContextTypes;
+      static contextTypes = ThemeContextTypes;
       render() {
-        let theme = get(this);
+        let theme = getThemeContext(this);
         return (
           <div
             className1={theme.className1}

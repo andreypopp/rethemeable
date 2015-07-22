@@ -1,4 +1,4 @@
-import {ContextTypes, get} from './ContextTypes';
+import {ThemeContextTypes, getThemeContext} from './ThemeContextTypes';
 
 /**
  * Mark component as themeable.
@@ -19,7 +19,7 @@ export default function Themeable(Component) {
 
     static contextTypes = {
       ...Component.contextTypes,
-      ...ContextTypes
+      ...ThemeContextTypes
     };
 
     static theme = themeKey;
@@ -27,7 +27,7 @@ export default function Themeable(Component) {
     get theme() {
       let {theme} = this.props;
       if (!theme) {
-        let themeUniverse = get(this);
+        let themeUniverse = getThemeContext(this);
         theme = themeUniverse && themeUniverse[themeKey] || {};
       }
       return theme;

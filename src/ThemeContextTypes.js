@@ -2,14 +2,14 @@ import {PropTypes} from 'react';
 
 const CONTEXTKEY = '@@themeable';
 
-export let ContextTypes = {
+export let ThemeContextTypes = {
   [CONTEXTKEY]: PropTypes.object
 };
 
-export function make(theme) {
+export function makeThemeContext(theme) {
   return {[CONTEXTKEY]: theme};
 }
 
-export function get(component) {
+export function getThemeContext(component) {
   return component.context ? component.context[CONTEXTKEY] : undefined;
 }

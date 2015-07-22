@@ -1,5 +1,7 @@
-import React, {PropTypes}         from 'react';
-import {ContextTypes, make, get}  from './ContextTypes';
+import React, {PropTypes}     from 'react';
+import {ThemeContextTypes,
+        makeThemeContext,
+        getThemeContext}      from './ThemeContextTypes';
 
 /**
  * Inject theme into a component tree.
@@ -10,8 +12,8 @@ export default class Themed extends React.Component {
     theme: PropTypes.object
   };
 
-  static childContextTypes = ContextTypes;
-  static contextTypes = ContextTypes;
+  static childContextTypes = ThemeContextTypes;
+  static contextTypes = ThemeContextTypes;
 
   render() {
     return React.Children.only(this.props.children);
@@ -19,11 +21,11 @@ export default class Themed extends React.Component {
 
   getChildContext() {
     let {theme} = this.props;
-    let prevTheme = get(this);
+    let prevTheme = getThemeContext(this);
     if (prevTheme) {
-      return make({...prevTheme, ...theme});
+      return makeThemeContext({...prevTheme, ...theme});
     } else {
-      return make(theme);
+      return makeThemeContext(theme);
     }
   }
 }
