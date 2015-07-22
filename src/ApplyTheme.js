@@ -14,9 +14,9 @@ export default function ApplyTheme(theme, Component) {
 }
 
 function ApplyThemeImpl(theme, Component) {
-  return class extends Component {
-    get theme() {
-      return theme;
-    }
-  };
+  let displayName = Component.displayName || Component.name;
+  let ThemedComponent = class extends Component { }
+  ThemedComponent.displayName = displayName;
+  ThemedComponent.prototype.theme = theme;
+  return ThemedComponent;
 }
