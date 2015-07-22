@@ -36,15 +36,18 @@ Define a themeable component:
     class Button extends React.Component {
 
       render() {
+        let theme = this.theme
         return (
-          <button className={this.theme.self}>
+          <button className={theme.self}>
+            <i className={theme.icon} />
             {this.props.children}
           </button>
         )
       }
     }
 
-Now define a theme as an object with keys defined by themeable components:
+Now define a theme as a collection of styles for a set of React components.
+Styles for each component are isolated by an unique key within the theme:
 
     import Button from 'widgets/Button'
 
