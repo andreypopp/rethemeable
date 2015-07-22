@@ -30,7 +30,7 @@ describe('<Themed />', function() {
       </Themed>
     );
     themedElem = shallowRender(themedElem, context);
-    expect(themedElem.props.className).toBe(theme.className);
+    expect(themedElem.props.className).toBe('className');
   });
 
   it('preserves theme passed via outer components', function() {
@@ -68,8 +68,8 @@ describe('<Themed />', function() {
     themedElem = shallowRender(themedElem, context1);
     themedElem = shallowRender(themedElem, context2);
 
-    expect(themedElem.props.className1).toBe(theme1.className1);
-    expect(themedElem.props.className2).toBe(theme2.className2);
+    expect(themedElem.props.className1).toBe('className1');
+    expect(themedElem.props.className2).toBe('className2');
   });
 
 });

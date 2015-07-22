@@ -23,7 +23,7 @@ describe('ApplyTheme', function() {
     }
 
     let themedElem = shallowRender(<Component />);
-    expect(themedElem.props.className).toBe(theme.className);
+    expect(themedElem.props.className).toBe('className');
   });
 
   it('works as factory', function() {
@@ -39,7 +39,7 @@ describe('ApplyTheme', function() {
     Component = ApplyTheme(theme, Component);
 
     let themedElem = shallowRender(<Component />);
-    expect(themedElem.props.className).toBe(theme.className);
+    expect(themedElem.props.className).toBe('className');
   });
 
   it('can extract component theme from global theme', function() {

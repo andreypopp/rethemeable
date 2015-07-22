@@ -26,7 +26,7 @@ describe('<Themeable />', function() {
       [Component.theme]: {className: 'className'}
     };
     let themedElem = shallowRender(<Component />, makeThemeContext(theme));
-    expect(themedElem.props.className).toBe(theme[Component.theme].className);
+    expect(themedElem.props.className).toBe('className');
   });
 
   it('allows configuration through props', function() {
@@ -34,7 +34,7 @@ describe('<Themeable />', function() {
       className: 'className'
     };
     let themedElem = shallowRender(<Component theme={buttonTheme} />);
-    expect(themedElem.props.className).toBe(buttonTheme.className);
+    expect(themedElem.props.className).toBe('className');
   });
 
 });
