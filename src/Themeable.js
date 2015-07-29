@@ -30,8 +30,8 @@ export default function Themeable(Component) {
         let themeUniverse = getThemeContext(this);
         theme = themeUniverse && themeUniverse[themeKey];
       }
-      if (!theme) {
-        theme = this.constructor.defaultTheme;
+      if (this.constructor.defaultTheme) {
+        theme = {...this.constructor.defaultTheme, ...theme};
       }
       return theme || {};
     }
