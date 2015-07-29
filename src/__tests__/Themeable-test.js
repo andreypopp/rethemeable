@@ -18,11 +18,15 @@ describe('<Themeable />', function() {
   class Component extends React.Component {
 
     static defaultTheme = {
-      className: 'defaultClassName'
+      className: 'defaultClassName',
+      className2: 'defaultClassName2'
     };
 
     render() {
-      return <div className={this.theme.className} />;
+      return <div
+        className={this.theme.className}
+        className2={this.theme.className2}
+        />;
     }
   }
 
@@ -32,6 +36,7 @@ describe('<Themeable />', function() {
     };
     let themedElem = shallowRender(<Component />, makeThemeContext(theme));
     expect(themedElem.props.className).toBe('className');
+    expect(themedElem.props.className2).toBe('defaultClassName2');
   });
 
   it('allows configuration through props', function() {
@@ -40,11 +45,13 @@ describe('<Themeable />', function() {
     };
     let themedElem = shallowRender(<Component theme={buttonTheme} />);
     expect(themedElem.props.className).toBe('className');
+    expect(themedElem.props.className2).toBe('defaultClassName2');
   });
 
   it('falls back to default theme', function() {
     let themedElem = shallowRender(<Component />);
     expect(themedElem.props.className).toBe('defaultClassName');
+    expect(themedElem.props.className2).toBe('defaultClassName2');
   });
 
 });
