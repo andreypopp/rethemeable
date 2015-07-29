@@ -16,6 +16,11 @@ describe('<Themeable />', function() {
 
   @Themeable
   class Component extends React.Component {
+
+    static defaultTheme = {
+      className: 'defaultClassName'
+    };
+
     render() {
       return <div className={this.theme.className} />;
     }
@@ -35,6 +40,11 @@ describe('<Themeable />', function() {
     };
     let themedElem = shallowRender(<Component theme={buttonTheme} />);
     expect(themedElem.props.className).toBe('className');
+  });
+
+  it('falls back to default theme', function() {
+    let themedElem = shallowRender(<Component />);
+    expect(themedElem.props.className).toBe('defaultClassName');
   });
 
 });
