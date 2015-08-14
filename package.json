@@ -1,6 +1,6 @@
 {
   "name": "rethemeable",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Themeable React component utilities",
   "main": "lib/index.js",
   "dependencies": {},
