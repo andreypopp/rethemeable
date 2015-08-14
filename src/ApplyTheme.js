@@ -13,13 +13,17 @@ export default function ApplyTheme(theme, Component) {
   }
 }
 
-function ApplyThemeImpl(theme, Component) {
+function ApplyThemeImpl(theme, Component, displayName) {
   if (Component.theme && Component.theme in theme) {
     theme = theme[Component.theme];
   }
-  let displayName = Component.displayName || Component.name;
-  let ThemedComponent = class extends Component { };
-  ThemedComponent.displayName = displayName;
-  ThemedComponent.prototype.theme = theme;
+  displayName = displayName || Component.displayName || Component.name;
+  let ThemedComponent = class extends Component {
+    static displayName = displayName;
+
+    get theme() {
+      return theme;
+    }
+  };
   return ThemedComponent;
 }
