@@ -21,7 +21,7 @@ export default class Themed extends React.Component {
 
   getChildContext() {
     let {theme} = this.props;
-    let prevTheme = getThemeContext(this);
+    let prevTheme = getThemeContext(this.context);
     if (prevTheme) {
       return makeThemeContext({...prevTheme, ...theme});
     } else {

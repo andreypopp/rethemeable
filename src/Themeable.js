@@ -24,10 +24,26 @@ export default function Themeable(Component) {
 
     static theme = themeKey;
 
+    constructor(props) {
+      super(props);
+      this._themeCache = null;
+    }
+
+    componentWillUpdate(nextProps, nextState, nextContext) {
+      if (nextProps.theme !== this.props.theme ||
+          getThemeContext(nextContext) !== getThemeContext(this.context)) {
+        this._themeCache = null;
+      }
+    }
+
     get theme() {
+      if (this._themeCache !== null) {
+        return this._themeCache;
+      }
+
       let {theme} = this.props;
       if (!theme) {
-        let themeUniverse = getThemeContext(this);
+        let themeUniverse = getThemeContext(this.context);
         theme = themeUniverse && themeUniverse[themeKey];
       }
       if (this.constructor.defaultTheme) {
@@ -36,6 +52,7 @@ export default function Themeable(Component) {
       if (!theme) {
         theme = {};
       }
+      this._themeCache = theme;
       return theme;
     }
   };

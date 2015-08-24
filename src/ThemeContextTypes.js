@@ -10,6 +10,6 @@ export function makeThemeContext(theme) {
   return {[CONTEXTKEY]: theme};
 }
 
-export function getThemeContext(component) {
-  return component.context ? component.context[CONTEXTKEY] : undefined;
+export function getThemeContext(context) {
+  return context ? context[CONTEXTKEY] : undefined;
 }

@@ -16,7 +16,7 @@ describe('<Themed />', function() {
     class Component extends React.Component {
       static contextTypes = ThemeContextTypes;
       render() {
-        let theme = getThemeContext(this);
+        let theme = getThemeContext(this.context);
         return <div className={theme.className} />;
       }
     }
@@ -37,7 +37,7 @@ describe('<Themed />', function() {
     class Component extends React.Component {
       static contextTypes = ThemeContextTypes;
       render() {
-        let theme = getThemeContext(this);
+        let theme = getThemeContext(this.context);
         return (
           <div
             className1={theme.className1}
