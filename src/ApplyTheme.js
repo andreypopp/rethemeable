@@ -20,10 +20,7 @@ function ApplyThemeImpl(theme, Component, displayName) {
   displayName = displayName || Component.displayName || Component.name;
   let ThemedComponent = class extends Component {
     static displayName = displayName;
-
-    get theme() {
-      return theme;
-    }
+    static defaultTheme = {...Component.defaultTheme, ...theme};
   };
   return ThemedComponent;
 }

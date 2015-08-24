@@ -33,7 +33,10 @@ export default function Themeable(Component) {
       if (this.constructor.defaultTheme) {
         theme = {...this.constructor.defaultTheme, ...theme};
       }
-      return theme || {};
+      if (!theme) {
+        theme = {};
+      }
+      return theme;
     }
   };
 }
