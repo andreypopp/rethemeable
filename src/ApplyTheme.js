@@ -1,26 +1,35 @@
 /**
- * Apply theme to a component.
- *
- * Produce a new component which has theme applied by default.
+ * @copyright 2015, Andrey Popp <8mayday@gmail.com>
  */
-export default function ApplyTheme(theme, Component) {
-  if (Component === undefined) {
-    return function ApplyThemeDecorator(DecoratedComponent) {
-      return ApplyThemeImpl(theme, DecoratedComponent);
-    };
-  } else {
-    return ApplyThemeImpl(theme, Component);
-  }
-}
 
-function ApplyThemeImpl(theme, Component) {
-  if (Component.theme && Component.theme in theme) {
-    theme = theme[Component.theme];
-  }
-  let displayName = Component.displayName || Component.name;
-  let ThemedComponent = class extends Component {
-    static displayName = displayName;
-    static defaultTheme = {...Component.defaultTheme, ...theme};
+import React, {PropTypes}     from 'react';
+import {ThemeContextTypes,
+        makeThemeContext,
+        getThemeContext}      from './ThemeContextTypes';
+
+/**
+ * Inject theme into a component tree.
+ */
+export default class ApplyTheme extends React.Component {
+
+  static propTypes = {
+    theme: PropTypes.object
   };
-  return ThemedComponent;
+
+  static childContextTypes = ThemeContextTypes;
+  static contextTypes = ThemeContextTypes;
+
+  render() {
+    return React.Children.only(this.props.children);
+  }
+
+  getChildContext() {
+    let {theme} = this.props;
+    let prevTheme = getThemeContext(this.context);
+    if (prevTheme) {
+      return makeThemeContext({...prevTheme, ...theme});
+    } else {
+      return makeThemeContext(theme);
+    }
+  }
 }

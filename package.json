@@ -3,7 +3,9 @@
   "version": "2.0.4",
   "description": "Themeable React component utilities",
   "main": "lib/index.js",
-  "dependencies": {},
+  "dependencies": {
+    "invariant": "^2.1.0"
+  },
   "peerDependencies": {
     "react": ">=0.13.2 || ^0.14.0-beta1"
   },

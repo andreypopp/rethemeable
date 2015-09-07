@@ -57,18 +57,18 @@ Styles for each component are isolated by an unique key within the theme:
       }
     }
 
-And configure it via `<Themed />` component:
+And configure it via `<ApplyTheme />` component:
 
-    import {Themed} from 'rethemeable'
+    import {ApplyTheme} from 'rethemeable'
     import React from 'react'
 
     React.render(
-      <Themed theme={BootstrapTheme}>
+      <ApplyTheme theme={BootstrapTheme}>
         <div>
           <h1>This is an app</h1>
           <Button>See, I don't have theme prop passed explicitly</Button>
         </div>
-      </Themed>
+      </ApplyTheme>
     )
 
 Component `<Button />` will receive `theme` implicitly.
@@ -78,13 +78,13 @@ fine-grained control:
 
     <Button theme={BootstrapTheme} />
 
-If you don't want to use `<Themed />` component but just apply some theme on a
-themeable component you can use `ApplyTheme` function:
+If you don't want to use `<ApplyTheme />` component but just apply some theme on a
+themeable component you can use `theme` function:
 
-    import {ApplyTheme} from 'rethemeable'
+    import {theme} from 'rethemeable'
     import ThemeableButton from 'third-party-themeable-button'
 
-    let MyButton = ApplyTheme(BootstrapTheme, ThemeableButton)
+    let MyButton = theme(ThemeableButton, BootstrapTheme);
 
     React.render(<MyButton>Hello, I'm themed!</MyButton>)
 

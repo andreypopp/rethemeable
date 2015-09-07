@@ -1,4 +1,9 @@
+/**
+ * @copyright 2015, Andrey Popp <8mayday@gmail.com>
+ */
+
 import {ThemeContextTypes, getThemeContext} from './ThemeContextTypes';
+import themeComponent                       from './themeComponent';
 
 /**
  * Mark component as themeable.
@@ -23,6 +28,9 @@ export default function Themeable(Component) {
     };
 
     static theme = themeKey;
+    static concreteTheme = null;
+
+    static __isThemeable = true;
 
     constructor(props) {
       super(props);
@@ -34,6 +42,9 @@ export default function Themeable(Component) {
           getThemeContext(nextContext) !== getThemeContext(this.context)) {
         this._themeCache = null;
       }
+      if (super.componentWillUpdate) {
+        super.componentWillUpdate(nextProps, nextState, nextContext);
+      }
     }
 
     get theme() {
@@ -42,6 +53,9 @@ export default function Themeable(Component) {
       }
 
       let {theme} = this.props;
+      if (!theme) {
+        theme = this.constructor.concreteTheme;
+      }
       if (!theme) {
         let themeUniverse = getThemeContext(this.context);
         theme = themeUniverse && themeUniverse[themeKey];
@@ -59,9 +73,13 @@ export default function Themeable(Component) {
 
   if (ThemeableComponent.style === undefined) {
     ThemeableComponent.style = function(theme) {
-      return ApplyTheme(theme, ThemeableComponent);
+      return themeComponent(theme, ThemeableComponent);
     }
   }
 
   return ThemeableComponent;
+}
+
+export function isThemeable(Component) {
+  return Component.__isThemeable;
 }

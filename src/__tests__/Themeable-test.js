@@ -1,3 +1,7 @@
+/**
+ * @copyright 2015, Andrey Popp <8mayday@gmail.com>
+ */
+
 import 'core-js/modules/es6.symbol';
 
 import expect               from 'expect';
