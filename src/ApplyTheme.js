@@ -13,11 +13,11 @@ export default function ApplyTheme(theme, Component) {
   }
 }
 
-function ApplyThemeImpl(theme, Component, displayName) {
+function ApplyThemeImpl(theme, Component) {
   if (Component.theme && Component.theme in theme) {
     theme = theme[Component.theme];
   }
-  displayName = displayName || Component.displayName || Component.name;
+  let displayName = Component.displayName || Component.name;
   let ThemedComponent = class extends Component {
     static displayName = displayName;
     static defaultTheme = {...Component.defaultTheme, ...theme};

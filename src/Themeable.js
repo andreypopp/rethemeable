@@ -13,7 +13,7 @@ export default function Themeable(Component) {
   let displayName = Component.displayName || Component.name;
   let themeKey = Symbol(displayName);
 
-  return class extends Component {
+  let ThemeableComponent = class extends Component {
 
     static displayName = displayName;
 
@@ -56,4 +56,12 @@ export default function Themeable(Component) {
       return theme;
     }
   };
+
+  if (ThemeableComponent.style === undefined) {
+    ThemeableComponent.style = function(theme) {
+      return ApplyTheme(theme, ThemeableComponent);
+    }
+  }
+
+  return ThemeableComponent;
 }
