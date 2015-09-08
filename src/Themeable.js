@@ -74,7 +74,7 @@ export default function Themeable(Component, defaultTheme = Component.defaultThe
   if (ThemeableComponent.style === undefined) {
     ThemeableComponent.style = function(theme) {
       return themeComponent(this, theme);
-    }
+    };
   }
 
   return ThemeableComponent;
