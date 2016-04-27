@@ -8,7 +8,7 @@ import expect               from 'expect';
 import React                from 'react';
 import TestUtils            from 'react/lib/ReactTestUtils';
 import {makeThemeContext}   from '../ThemeContextTypes';
-import Themeable            from '../Themeable';
+import themeable            from '../themeable';
 
 function shallowRender(element, context) {
   let renderer = TestUtils.createRenderer();
@@ -16,9 +16,9 @@ function shallowRender(element, context) {
   return renderer.getRenderOutput();
 }
 
-describe('<Themeable />', function() {
+describe('themeable()', function() {
 
-  @Themeable
+  @themeable
   class Component extends React.Component {
 
     static defaultTheme = {

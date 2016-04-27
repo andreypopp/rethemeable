@@ -5,7 +5,7 @@
 import expect         from 'expect';
 import React          from 'react';
 import TestUtils      from 'react/lib/ReactTestUtils';
-import Themeable      from '../Themeable';
+import themeable      from '../themeable';
 import themeComponent from '../themeComponent';
 
 function shallowRender(element, context) {
@@ -19,7 +19,7 @@ describe('themeComponent', function() {
   it('works as factory', function() {
     let theme = {className: 'className'};
 
-    @Themeable
+    @themeable
     class Component extends React.Component {
 
       render() {
@@ -36,7 +36,7 @@ describe('themeComponent', function() {
   it('still allow theme override via props', function() {
     let theme = {className: 'className'};
 
-    @Themeable
+    @themeable
     class Component extends React.Component {
 
       render() {
@@ -53,7 +53,7 @@ describe('themeComponent', function() {
 
   it('merges with the previous theme', function() {
 
-    @Themeable
+    @themeable
     class Component extends React.Component {
 
       static defaultTheme = {className: 'className'};
