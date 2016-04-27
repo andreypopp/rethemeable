@@ -58,4 +58,24 @@ describe('<Themeable />', function() {
     expect(themedElem.props.className2).toBe('defaultClassName2');
   });
 
+
+  @Themeable
+  class PlainComponent extends React.Component {
+
+    render() {
+      return (
+        <div
+          className={this.theme.className}
+          className2={this.theme.className2}
+        />
+      );
+    }
+  }
+
+  it('can render without a theme', function() {
+    let themedElem = shallowRender(<PlainComponent />);
+    expect(themedElem.props.className).toEqual(undefined);
+    expect(themedElem.props.className2).toEqual(undefined);
+  });
+
 });
