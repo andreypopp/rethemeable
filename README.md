@@ -29,10 +29,10 @@ Usage
 
 Define a themeable component:
 
-    import {Themeable} from 'rethemeable'
+    import {themeable} from 'rethemeable'
     import React from 'react'
 
-    @Themeable
+    @themeable
     class Button extends React.Component {
 
       render() {

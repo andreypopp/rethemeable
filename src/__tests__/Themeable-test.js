@@ -59,7 +59,7 @@ describe('themeable()', function() {
   });
 
 
-  @Themeable
+  @themeable
   class PlainComponent extends React.Component {
 
     render() {
