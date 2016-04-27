@@ -3,5 +3,5 @@
  */
 
 export ApplyTheme         from './ApplyTheme';
-export Themeable          from './Themeable';
+export themeable          from './themeable';
 export {default as theme} from './themeComponent';
