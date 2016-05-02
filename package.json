@@ -1,6 +1,6 @@
 {
   "name": "rethemeable",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "Themeable React component utilities",
   "main": "lib/index.js",
   "author": "Andrey Popp <8mayday@gmail.com>",
