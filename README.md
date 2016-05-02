@@ -29,7 +29,7 @@ Usage
 
 Define a themeable component:
 
-    import {themeable} from 'rethemeable'
+    import { themeable } from 'rethemeable'
     import React from 'react'
 
     @themeable
@@ -59,7 +59,7 @@ Styles for each component are isolated by an unique key within the theme:
 
 And configure it via `<ApplyTheme />` component:
 
-    import {ApplyTheme} from 'rethemeable'
+    import { ApplyTheme } from 'rethemeable'
     import React from 'react'
 
     React.render(
@@ -81,7 +81,7 @@ fine-grained control:
 If you don't want to use `<ApplyTheme />` component but just apply some theme on a
 themeable component you can use `theme` function:
 
-    import {theme} from 'rethemeable'
+    import { theme } from 'rethemeable'
     import ThemeableButton from 'third-party-themeable-button'
 
     let MyButton = theme(ThemeableButton, BootstrapTheme);
