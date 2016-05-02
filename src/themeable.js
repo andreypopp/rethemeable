@@ -1,9 +1,11 @@
 /**
  * @copyright 2015, Andrey Popp <8mayday@gmail.com>
  */
+/* eslint react/require-render-return: "off" */ // Can remove once issue is resolved: https://github.com/yannickcr/eslint-plugin-react/issues/552
 
-import {ThemeContextTypes, getThemeContext} from './ThemeContextTypes';
-import themeComponent                       from './themeComponent';
+import { PropTypes } from 'react';
+import { ThemeContextTypes, getThemeContext } from './ThemeContextTypes';
+import themeComponent from './themeComponent';
 
 /**
  * Mark component as themeable.
@@ -15,32 +17,37 @@ import themeComponent                       from './themeComponent';
  * distinguish component styles.
  */
 export default function themeable(Component, defaultTheme) {
-  let displayName = Component.displayName || Component.name;
-  let themeKey = Symbol(displayName);
+  const displayName = Component.displayName || Component.name;
+  const themeKey = Symbol(displayName);
 
-  let ThemeableComponent = class extends Component {
+  class ThemeableComponent extends Component {
 
     static displayName = displayName;
 
+    static propTypes = {
+      ...Component.propTypes,
+      theme: PropTypes.object,
+    };
+
     static contextTypes = {
       ...Component.contextTypes,
-      ...ThemeContextTypes
+      ...ThemeContextTypes,
     };
 
     static theme = themeKey;
     static concreteTheme = null;
 
-    static __isThemeable = true;
+    static isThemeable = true;
 
     constructor(props) {
       super(props);
-      this._themeCache = null;
+      this.themeCache = null;
     }
 
     componentWillUpdate(nextProps, nextState, nextContext) {
       if (nextProps.theme !== this.props.theme ||
-          getThemeContext(nextContext) !== getThemeContext(this.context)) {
-        this._themeCache = null;
+        getThemeContext(nextContext) !== getThemeContext(this.context)) {
+        this.themeCache = null;
       }
       if (super.componentWillUpdate) {
         super.componentWillUpdate(nextProps, nextState, nextContext);
@@ -48,33 +55,33 @@ export default function themeable(Component, defaultTheme) {
     }
 
     get theme() {
-      if (this._themeCache !== null) {
-        return this._themeCache;
+      if (this.themeCache !== null) {
+        return this.themeCache;
       }
 
-      let {theme} = this.props;
+      let { theme } = this.props;
       if (!theme) {
         theme = this.constructor.concreteTheme;
       }
       if (!theme) {
-        let themeUniverse = getThemeContext(this.context);
+        const themeUniverse = getThemeContext(this.context);
         theme = themeUniverse && themeUniverse[themeKey];
       }
       if (defaultTheme) {
-        theme = {...defaultTheme, ...theme};
+        theme = { ...defaultTheme, ...theme };
       } else if (Component.defaultTheme) {
-        theme = {...Component.defaultTheme, ...theme};
+        theme = { ...Component.defaultTheme, ...theme };
       }
       if (!theme) {
         theme = {};
       }
-      this._themeCache = theme;
+      this.themeCache = theme;
       return theme;
     }
-  };
+  }
 
   if (ThemeableComponent.style === undefined) {
-    ThemeableComponent.style = function(theme) {
+    ThemeableComponent.style = function style(theme) {
       return themeComponent(this, theme);
     };
   }
@@ -83,5 +90,5 @@ export default function themeable(Component, defaultTheme) {
 }
 
 export function isThemeable(Component) {
-  return Component.__isThemeable;
+  return Component.isThemeable;
 }

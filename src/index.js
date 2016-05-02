@@ -2,6 +2,18 @@
  * @copyright 2015, Andrey Popp <8mayday@gmail.com>
  */
 
-export ApplyTheme         from './ApplyTheme';
-export themeable          from './themeable';
-export {default as theme} from './themeComponent';
+import ApplyTheme from './ApplyTheme';
+import themeable from './themeable';
+import theme from './themeComponent';
+
+export {
+  ApplyTheme,
+  themeable,
+  theme,
+};
+
+export default {
+  ApplyTheme,
+  themeable,
+  theme,
+};
