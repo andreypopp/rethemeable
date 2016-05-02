@@ -1,13 +1,13 @@
-import {PropTypes} from 'react';
+import { PropTypes } from 'react';
 
 const CONTEXTKEY = '@@themeable';
 
-export let ThemeContextTypes = {
-  [CONTEXTKEY]: PropTypes.object
+export const ThemeContextTypes = {
+  [CONTEXTKEY]: PropTypes.object,
 };
 
 export function makeThemeContext(theme) {
-  return {[CONTEXTKEY]: theme};
+  return { [CONTEXTKEY]: theme };
 }
 
 export function getThemeContext(context) {

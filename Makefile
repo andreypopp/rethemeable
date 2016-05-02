@@ -1,11 +1,10 @@
 .DELETE_ON_ERROR:
 
-BABEL_OPTIONS = --stage 0
 BIN           = ./node_modules/.bin
-TESTS         = $(shell find src -path '*/__tests__/*-test.js')
+TESTS         = src/tests/
 SRC           = $(filter-out $(TESTS), $(shell find src -name '*.js'))
 LIB           = $(SRC:src/%=lib/%)
-NODE          = $(BIN)/babel-node $(BABEL_OPTIONS)
+NODE          = $(BIN)/babel-node
 
 build:
 	@$(MAKE) -j 8 $(LIB)
@@ -14,10 +13,10 @@ lint:
 	@$(BIN)/eslint src
 
 test:
-	@NODE_ENV=test $(NODE) $(BIN)/_mocha -- $(TESTS)
+	@NODE_ENV=test $(NODE) $(BIN)/_mocha $(TESTS)
 
 ci:
-	@NODE_ENV=test $(NODE) $(BIN)/_mocha --watch -- $(TESTS) 
+	@NODE_ENV=test $(NODE) $(BIN)/_mocha $(TESTS) --watch
 
 test-coverage:
 	@NODE_ENV=test $(NODE) $(BIN)/isparta cover $(BIN)/_mocha -- $(TESTS)
@@ -35,4 +34,4 @@ clean:
 lib/%: src/%
 	@echo "Building $<"
 	@mkdir -p $(@D)
-	@$(BIN)/babel $(BABEL_OPTIONS) -o $@ $<
+	@$(BIN)/babel -o $@ $<
