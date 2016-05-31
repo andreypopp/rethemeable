@@ -105,6 +105,94 @@ theme from a set of CSS modules:
       [ModalTheme.theme]: ModalTheme
     }
 
+Chunking theme and component separately, or when to pass themeKeys
+----------------------------------------------------------------
+
+It can be desirable to chunk (or split) bundled assets in production, especially
+when dealing with larger sites.
+
+When chunking `themeable` components, the theme and `themeable` components must
+to be able to be loaded independently in order for a build pipeline (like
+[Webpack][]) to properly optimize chunk size and contents.
+
+Separating the definition of theme keys from a given `themeable` component
+allows the keys, theme, and components to be loaded if and whenever they are
+needed.
+
+*./key-registry.js*
+
+    /** List of theme keys to connect classmaps with component themes */
+
+    export {
+      Button: Symbol('Button'),
+      Modal: Symbol('Modal')
+    }
+
+
+*./theme.js*
+
+    /** Map themeKey Symbols to theme classmaps */
+
+    import { Button, Modal } from './key-registry';
+    import ButtonTheme from './button.css';
+    import ModalTheme from 'some-module/with-modal-styles.css';
+
+    const theme = {
+      [Button]: ButtonTheme,
+      [Modal]: ModalTheme
+    }
+
+    export { theme }
+
+
+*./Button.jsx*
+
+    import { themeable } from 'rethemeable';
+    import { compAKey as themeKey } from './key-registry';
+
+    class Button {}
+
+    export default themeable(Button, {themeKey});
+
+
+*./Modal.jsx*
+
+    import { themeable } from 'rethemeable';
+    import { compBKey as themeKey } from './key-registry';
+
+    class Modal {}
+
+    export default themeable(Modal, {themeKey});
+
+*./Layout.jsx*
+
+    /** Provide theme to themeable components via context */
+
+    import Helmet from 'react-helmet';
+    import { theme } from './theme.js';
+    import { ApplyTheme } from 'rethemeable';
+
+    // map of asset paths extracted during build
+    import assets from 'assets-map.json';
+
+    class App {
+      /*
+
+      render(
+        <ApplyTheme theme={theme}>
+          <Helmet link={assets.theme.css} />
+            {this.props.children}
+        </ApplyTheme>
+        )
+    }
+
+Without chunks, all components are hard dependencies of a theme. Therefore they
+*must* be chunked together to preserve the link of Symbol to theme. This can
+result bloated chunks and/or tedious maintenance of themes.
+
+
+
 [React]: http://reactjs.org
 [npm]: http://npmjs.org
 [CSS modules]: https://github.com/css-modules/css-modules
+[Webpack]: https://webpack.github.io
