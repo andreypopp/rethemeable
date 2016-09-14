@@ -39,8 +39,8 @@ export default function themeable(Component, defaultTheme) {
 
     static isThemeable = true;
 
-    constructor(props) {
-      super(props);
+    constructor(props, context) {
+      super(props, context);
       this.themeCache = null;
     }
 

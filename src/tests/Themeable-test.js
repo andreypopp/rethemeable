@@ -1,7 +1,7 @@
 /**
  * @copyright 2015, Andrey Popp <8mayday@gmail.com>
  */
-/* global describe, it */
+/* global describe, it, beforeEach, afterEach */
 
 import expect from 'expect';
 import React from 'react';
@@ -17,6 +17,10 @@ function shallowRender(element, context) {
 
 describe('themeable()', () => {
   class Component extends React.Component {
+    static contextTypes = {
+      ctx: React.PropTypes.string,
+    };
+
     static defaultTheme = {
       className: 'defaultClassName',
       className2: 'defaultClassName2',
@@ -24,10 +28,13 @@ describe('themeable()', () => {
 
     render() {
       const theme = this.theme;
+      const context = this.context;
+
       return (
         <div
           className={theme.className}
           className2={theme.className2}
+          ctx={context.ctx}
         />
       );
     }
@@ -53,6 +60,12 @@ describe('themeable()', () => {
     const themedElem = shallowRender(<ThemeableComponent theme={buttonTheme} />);
     expect(themedElem.props.className).toBe('className');
     expect(themedElem.props.className2).toBe('defaultClassName2');
+  });
+
+  it('passes context and props to constructor', () => {
+    const themedElem = shallowRender(<ThemeableComponent />, { ctx: 'ctx' });
+
+    expect(themedElem.props.ctx).toBe('ctx');
   });
 
   it('falls back to default theme', () => {
