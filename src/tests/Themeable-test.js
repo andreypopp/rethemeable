@@ -53,6 +53,20 @@ describe('themeable()', () => {
     expect(themedElem.props.className2).toBe('defaultClassName2');
   });
 
+  it('allows configuration through context with a passed themeKey', () => {
+    const themeKey = Symbol('test-theme-key');
+    const PassedThemeKeyComponent = themeable(Component, {themeKey});
+    const theme = {
+      [PassedThemeKeyComponent.theme]: {
+        className: 'className',
+      },
+    };
+    const themedElem = shallowRender(<PassedThemeKeyComponent />, makeThemeContext(theme));
+    expect(PassedThemeKeyComponent.theme).toBe(themeKey);
+    expect(themedElem.props.className).toBe('className');
+    expect(themedElem.props.className2).toBe('defaultClassName2');
+  });
+
   it('allows configuration through props', () => {
     const buttonTheme = {
       className: 'className',
