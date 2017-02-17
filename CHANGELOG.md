@@ -1,10 +1,11 @@
 5.0.0
 =====
 
-* Added support to pass in external Symbol when decorating a component with `themeable`
+* [ADDED] Added support to pass in external themeKey when decorating a component with `themeable`
+* [BREAKING] Removed Symbols for Universal support since browser support is minimal.  Now defaults to displayName string.
 * [BREAKING] Moved `defaultTheme` into an options object along with `themeKey`
 
-  Allowing an external Symbol to be passed for a given `themeable` component's `themeKey` enables the theme to be bundled/chunked separately from the component. This is particularly useful when splitting and chunking assets with CSS Modules.
+  Allowing an external key (Symbol, string, or other) to be passed in for a given `themeable` component's `themeKey`.  This enables the theme to be bundled/chunked separately from the component. This is particularly useful when splitting and chunking assets with CSS Modules.
 
 [4.1.0]
 =====

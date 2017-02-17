@@ -18,7 +18,7 @@ import themeComponent from './themeComponent';
  */
 export default function themeable(Component, { defaultTheme, themeKey } = {}) {
   const displayName = Component.displayName || Component.name;
-  const themeableKey = typeof themeKey === 'symbol' ? themeKey : Symbol(displayName);
+  const themeableKey = themeKey || displayName;
 
   class ThemeableComponent extends Component {
 
