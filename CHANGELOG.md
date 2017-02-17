@@ -1,3 +1,11 @@
+5.0.0
+=====
+
+* Added support to pass in external Symbol when decorating a component with `themeable`
+* [BREAKING] Moved `defaultTheme` into an options object along with `themeKey`
+
+  Allowing an external Symbol to be passed for a given `themeable` component's `themeKey` enables the theme to be bundled/chunked separately from the component. This is particularly useful when splitting and chunking assets with CSS Modules.
+
 [4.1.0]
 =====
 
