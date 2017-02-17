@@ -5,7 +5,7 @@
 
 import expect from 'expect';
 import React from 'react';
-import TestUtils from 'react/lib/ReactTestUtils';
+import TestUtils from 'react-addons-test-utils';
 import themeable from '../themeable';
 import themeComponent from '../themeComponent';
 
