@@ -5,6 +5,7 @@
 
 import expect from 'expect';
 import React from 'react';
+import PropTypes from 'prop-types';
 import TestUtils from 'react-addons-test-utils';
 import { makeThemeContext } from '../ThemeContextTypes';
 import themeable from '../themeable';
@@ -18,7 +19,7 @@ function shallowRender(element, context) {
 describe('themeable()', () => {
   class Component extends React.Component {
     static contextTypes = {
-      ctx: React.PropTypes.string,
+      ctx: PropTypes.string,
     };
 
     static defaultTheme = {
