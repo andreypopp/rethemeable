@@ -3,7 +3,7 @@
  */
 /* eslint react/require-render-return: "off" */ // Can remove once issue is resolved: https://github.com/yannickcr/eslint-plugin-react/issues/552
 
-import { PropTypes } from 'react';
+import PropTypes from 'prop-types';
 import { ThemeContextTypes, getThemeContext } from './ThemeContextTypes';
 import themeComponent from './themeComponent';
 
